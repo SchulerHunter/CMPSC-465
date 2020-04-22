@@ -1,11 +1,13 @@
 import networkx
 g = networkx.DiGraph()
+distDict = {}
 
 with open(input("Provide file path: "), "r") as f:
     edgeArray = []
     count = int(f.readline().split(" ")[0])
     for node in range(1, count+1):
         g.add_node(node)
+        distDict.update({node:-1})
     edges = f.readlines()
     for edge in edges:
         edge = edge.split(" ")
@@ -13,7 +15,16 @@ with open(input("Provide file path: "), "r") as f:
     g.add_edges_from(edgeArray)
 
 with open("output.txt", "w") as f:
-    print(list(networkx.bfs_edges(g, 1)))
-    f.write("0 ")
-    for edge in networkx.bfs_edges(g, 1):
-        
+    q = []
+    q.append(1)
+    dist = 0
+    distDict.update({1:0})
+    while q:
+        node = q.pop(0)
+        dist = distDict[node] + 1
+        for neighbor in g.neighbors(node):
+            if distDict[neighbor] == -1:
+                q.append(neighbor)
+                distDict.update({neighbor:dist})
+    for key in distDict:
+        f.write(str(distDict[key])+" ")
