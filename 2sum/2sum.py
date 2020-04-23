@@ -7,7 +7,7 @@ def findOpp(arr):
             # If 0, return second 0 through enumerate
             return (arr.index(val), [i for i, n in enumerate(arr) if n == val][1])
         tempArr.append(val)
-    return (0, 0)
+    return (0, 0, 0)
 
 
 arrays = []

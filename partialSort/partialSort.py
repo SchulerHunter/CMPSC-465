@@ -9,8 +9,7 @@ with open(input("Provide file path: "), "r") as f:
         values[i] = int(values[i])
     returnNum = int(f.readline())
     heapq.heapify(values)
+
+with open("output.txt", "w") as f:
     for i in range(returnNum):
-        if i == returnNum - 1:
-            print(heapq.heappop(values))
-        else:
-            heapq.heappop(values)
+        f.write(str(heapq.heappop(values))+" ")
